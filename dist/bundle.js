@@ -94,7 +94,13 @@ var Component = /** @class */ (function () {
     function Component() {
     }
     Component.prototype.create = function (pathtoCopy) {
-        console.log(fs.appendFileSync);
+        fs.readFile('../foo.txt', function (err, html) {
+            if (err) {
+                throw err;
+            }
+            console.log('reponse', html);
+        });
+        console.log('Create Component NG');
     };
     return Component;
 }());
@@ -105,7 +111,7 @@ exports.Component = Component;
 /* 2 */
 /***/ (function(module, exports) {
 
-
+module.exports = require("fs");
 
 /***/ })
 /******/ ]);

@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  "target": "node",
   watch: true,
   watchOptions: {
     ignored: ['files/**/*.js', 'node_modules']
@@ -21,9 +22,6 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist')
-  },
-  node: {
-    fs: 'empty'
   }
 };
 
