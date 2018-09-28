@@ -1,0 +1,22 @@
+{
+  "name": "nghi",
+  "version": "1.0.0",
+  "description": "create component into hibrid angular versions",
+  "main": "./dist/bundle.js",
+  "scripts": {
+    "start": "node dist/bundle.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "./node_modules/.bin/webpack --config webpack.config.js"
+  },
+  "bin": {
+    "nghi": "./bin/nghi-global.js"
+  },
+  "author": "Valcinei Silva",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "^3.5.0",
+    "typescript": "^3.1.1",
+    "webpack": "^3.3.0",
+    "webpack-cli": "^2.0.13"
+  }
+}
