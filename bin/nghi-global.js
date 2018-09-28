@@ -1,4 +1,5 @@
 #!/usr/bin/env node
-const nghi = require('../bundle');
-// Displays the text in the console
-console.log(nghi);
+const nghi = require('../dist/bundle');
+
+var args = process.argv;
+console.log(args);
