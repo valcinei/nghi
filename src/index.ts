@@ -1,4 +1,15 @@
-
 import { Component } from "./classes/component";
-    let component = new Component();
-    component.create('');
+
+
+export class Main {
+    component = new Component();
+    
+    constructor(public params:any) {
+        console.log(params);
+        console.log('Hellow Main')
+        this.component.create('');
+    }
+
+    
+}
+const main : Main = new Main('params');

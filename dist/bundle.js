@@ -71,8 +71,18 @@
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var component_1 = __webpack_require__(1);
-var component = new component_1.Component();
-component.create('');
+var Main = /** @class */ (function () {
+    function Main(params) {
+        this.params = params;
+        this.component = new component_1.Component();
+        console.log(params);
+        console.log('Hellow Main');
+        this.component.create('');
+    }
+    return Main;
+}());
+exports.Main = Main;
+var main = new Main('params');
 
 
 /***/ }),
@@ -81,37 +91,28 @@ component.create('');
 
 "use strict";
 
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = __importStar(__webpack_require__(2));
 var Component = /** @class */ (function () {
     function Component() {
     }
     Component.prototype.create = function (pathtoCopy) {
-        fs.readFile('../foo.txt', function (err, html) {
-            if (err) {
-                throw err;
-            }
-            console.log('reponse', html);
-        });
-        console.log('Create Component NG');
+        console.log('Create Component');
+        // fs.readdir(path.resolve(__dirname,'./'), (err, files) => {
+        //   files.forEach(file => {
+        //     console.log(file);
+        //   });
+        // })
+        // console.log(__dirname);
+        // fs.readFile(path.resolve(__dirname,'../foo.txt'), (err, html) => {
+        //     if (err) { throw err; }
+        //     console.log('reponse', html);
+        // });
+        // console.log('Create Component NG')
     };
     return Component;
 }());
 exports.Component = Component;
 
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = require("fs");
 
 /***/ })
 /******/ ]);
