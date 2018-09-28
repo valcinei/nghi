@@ -1,8 +1,10 @@
+import * as fs from 'fs';
+import * as path from 'path';
 export class Component{
 
     constructor(){}
     
-    public create() {
-        console.log('Create Component NG')
+    public create(pathtoCopy:string) {
+       console.log(fs.appendFileSync);
     }
 }
