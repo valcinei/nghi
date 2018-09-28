@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["library"] = factory();
+	else
+		root["library"] = factory();
+})(typeof self !== 'undefined' ? self : this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -76,13 +86,11 @@ var Main = /** @class */ (function () {
         this.params = params;
         this.component = new component_1.Component();
         console.log(params);
-        console.log('Hellow Main');
         this.component.create('');
     }
     return Main;
 }());
 exports.Main = Main;
-var main = new Main('params');
 
 
 /***/ }),
@@ -116,3 +124,4 @@ exports.Component = Component;
 
 /***/ })
 /******/ ]);
+});

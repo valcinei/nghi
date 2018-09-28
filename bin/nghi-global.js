@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-const nghi = require('../dist/bundle.js');
+const nghi = require('../dist/bundle');
 const path = require('path');
 var args = process;
 
-console.log('actual path',args.env.PWD);
-console.log(nghi);
+nghi.Main(args)
+// console.log('actual path',args.env.PWD);
+// console.log(nghi.Main(args));
