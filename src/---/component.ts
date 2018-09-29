@@ -6,7 +6,7 @@
         Account Id: {{ id }}
       `
     })
-    export class BankAccountComponent {
+    export class Src/--- {
       bankName: string|null = null;
       id: string|null = null;
      

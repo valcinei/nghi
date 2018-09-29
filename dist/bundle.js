@@ -125,15 +125,18 @@ var Component = /** @class */ (function () {
         var f = path.basename(file);
         var source = fs.createReadStream(file);
         var dest = fs.createWriteStream(path.resolve("" + pathtoName, f.replace('nghi', 'ts')));
-        source.pipe(dest);
-        source.on('end', function () { console.log('Succesfully copied'); });
-        source.on('error', function (err) { console.log(err); });
-        // fs.readFile(path.resolve(__dirname,'../src/classes/component.nghi'), (err, html:Buffer) => {
-        //     if (err) { throw err; }
-        //     console.log( html.toLocaleString());
-        // });
+        fs.readFile(path.resolve(__dirname, '../src/templates/component.nghi'), 'utf-8', function (err, data) {
+            if (err) {
+                throw err;
+            }
+            var convertedData = data.replace(' {{componentName}}', " " + fileName.replace(/^\w/, function (c) { return c.toUpperCase(); }));
+            fs.writeFile(path.resolve("" + pathtoName, f.replace('nghi', 'ts')), convertedData, 'utf8', function (err) {
+                if (err)
+                    return console.log(err);
+                console.log(data);
+            });
+        });
     };
-    ;
     return Component;
 }());
 exports.Component = Component;
