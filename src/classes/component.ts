@@ -14,9 +14,9 @@ export class Component {
 
 
         console.log(__dirname);
-        fs.readFile(path.resolve(__dirname,'../src/classes/foo.txt'), (err, html) => {
+        fs.readFile(path.resolve(__dirname,'../src/classes/foo.txt'), (err, html:Buffer) => {
             if (err) { throw err; }
-            console.log('reponse', html);
+            console.log( html.toLocaleString());
         });
         console.log('Create Component NG')
     }

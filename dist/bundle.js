@@ -126,7 +126,7 @@ var Component = /** @class */ (function () {
             if (err) {
                 throw err;
             }
-            console.log('reponse', html);
+            console.log(html.toLocaleString());
         });
         console.log('Create Component NG');
     };
