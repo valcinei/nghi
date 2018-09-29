@@ -11,18 +11,18 @@ export class Component {
         }
     
         console.log(pathtoName)
-    let file = path.resolve(__dirname,'../src/classes/foo.txt')
+    let file = path.resolve(__dirname,'../src/templates/component.nghi')
   
     //gets file name and adds it to dir2
     let f = path.basename(file);
     let source = fs.createReadStream(file);
-    let dest = fs.createWriteStream(path.resolve(pathtoName, f));
+    let dest = fs.createWriteStream( path.resolve(`${pathtoName}`, f.replace('nghi','ts')));
   
     source.pipe(dest);
     source.on('end', function() { console.log('Succesfully copied'); });
     source.on('error', function(err:any) { console.log(err); });
     
-    // fs.readFile(path.resolve(__dirname,'../src/classes/foo.txt'), (err, html:Buffer) => {
+    // fs.readFile(path.resolve(__dirname,'../src/classes/component.nghi'), (err, html:Buffer) => {
     //     if (err) { throw err; }
     //     console.log( html.toLocaleString());
     // });
