@@ -88,7 +88,7 @@ var Main = /** @class */ (function () {
         if (params.argv[2] === 'generate') {
             console.log('Generate Component');
         }
-        this.component.create(params.env.PWD + "/" + params.argv[2]);
+        this.component.create(params.env.PWD, params.argv[2]);
     }
     return Main;
 }());
@@ -109,12 +109,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var path = __importStar(__webpack_require__(3));
-var fs = __importStar(__webpack_require__(2));
+var path = __importStar(__webpack_require__(2));
+var fs = __importStar(__webpack_require__(3));
 var Component = /** @class */ (function () {
     function Component() {
     }
-    Component.prototype.create = function (pathtoName) {
+    Component.prototype.create = function (diretory, fileName) {
+        var pathtoName = diretory + "/" + fileName;
+        if (!fs.existsSync(pathtoName)) {
+            fs.mkdirSync(pathtoName);
+        }
         console.log(pathtoName);
         var file = path.resolve(__dirname, '../src/classes/foo.txt');
         //gets file name and adds it to dir2
@@ -139,13 +143,13 @@ exports.Component = Component;
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("fs");
+module.exports = require("path");
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("fs");
 
 /***/ })
 /******/ ]);

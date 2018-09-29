@@ -4,7 +4,12 @@ export class Component {
 
     constructor() { }
     
-    public create(pathtoName: string) {
+    public create(diretory: string, fileName:string) {
+        let pathtoName =`${diretory}/${fileName}`
+        if (!fs.existsSync(pathtoName)){
+            fs.mkdirSync(pathtoName);
+        }
+    
         console.log(pathtoName)
     let file = path.resolve(__dirname,'../src/classes/foo.txt')
   
