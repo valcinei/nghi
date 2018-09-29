@@ -85,7 +85,9 @@ var Main = /** @class */ (function () {
     function Main(params) {
         this.params = params;
         this.component = new component_1.Component();
-        console.log(params);
+        if (params.argv[2] === 'generate') {
+            console.log('Generate Component');
+        }
         this.component.create('');
     }
     return Main;
@@ -99,28 +101,51 @@ exports.Main = Main;
 
 "use strict";
 
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var fs = __importStar(__webpack_require__(2));
+var path = __importStar(__webpack_require__(3));
 var Component = /** @class */ (function () {
     function Component() {
     }
     Component.prototype.create = function (pathtoCopy) {
         console.log('Create Component');
-        // fs.readdir(path.resolve(__dirname,'./'), (err, files) => {
-        //   files.forEach(file => {
-        //     console.log(file);
-        //   });
-        // })
-        // console.log(__dirname);
-        // fs.readFile(path.resolve(__dirname,'../foo.txt'), (err, html) => {
-        //     if (err) { throw err; }
-        //     console.log('reponse', html);
-        // });
-        // console.log('Create Component NG')
+        fs.readdir(path.resolve(__dirname, './'), function (err, files) {
+            files.forEach(function (file) {
+                console.log(file.charCodeAt);
+            });
+        });
+        console.log(__dirname);
+        fs.readFile(path.resolve(__dirname, '../src/classes/foo.txt'), function (err, html) {
+            if (err) {
+                throw err;
+            }
+            console.log('reponse', html);
+        });
+        console.log('Create Component NG');
     };
     return Component;
 }());
 exports.Component = Component;
 
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("fs");
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("path");
 
 /***/ })
 /******/ ]);

@@ -6,18 +6,18 @@ export class Component {
     public create(pathtoCopy: string) {
         console.log('Create Component')
         
-        // fs.readdir(path.resolve(__dirname,'./'), (err, files) => {
-        //   files.forEach(file => {
-        //     console.log(file);
-        //   });
-        // })
+        fs.readdir(path.resolve(__dirname,'./'), (err, files) => {
+          files.forEach(file => {
+            console.log(file.charCodeAt);
+          });
+        })
 
 
-        // console.log(__dirname);
-        // fs.readFile(path.resolve(__dirname,'../foo.txt'), (err, html) => {
-        //     if (err) { throw err; }
-        //     console.log('reponse', html);
-        // });
-        // console.log('Create Component NG')
+        console.log(__dirname);
+        fs.readFile(path.resolve(__dirname,'../src/classes/foo.txt'), (err, html) => {
+            if (err) { throw err; }
+            console.log('reponse', html);
+        });
+        console.log('Create Component NG')
     }
 }

@@ -5,7 +5,13 @@ export class Main {
     public component = new Component();
 
     constructor(public params: any) {
-        console.log(params);
+        
+        if(params.argv[2] === 'generate' ) {
+            console.log('Generate Component');
+        
+        }
+
+      
         this.component.create('');
     }
 

@@ -6,7 +6,7 @@ module.exports = {
   watchOptions: {
     ignored: ['files/**/*.js', 'node_modules']
   },
-  entry: './src/index.ts',
+  entry: path.resolve(__dirname, './src/index.ts'),
   module: {
     rules: [
       {
@@ -17,6 +17,7 @@ module.exports = {
     ]
   },
   resolve: {
+
     extensions: [ '.tsx', '.ts', '.js' ]
   },
   output: {
@@ -24,6 +25,9 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     library: 'library',
     libraryTarget: 'umd'
+  },
+  node:{
+    __dirname:false
   }
 };
 
