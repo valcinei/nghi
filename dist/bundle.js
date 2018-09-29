@@ -88,7 +88,7 @@ var Main = /** @class */ (function () {
         if (params.argv[2] === 'generate') {
             console.log('Generate Component');
         }
-        this.component.create('');
+        this.component.create(params.env.PWD + "/" + params.argv[2]);
     }
     return Main;
 }());
@@ -109,27 +109,27 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = __importStar(__webpack_require__(2));
 var path = __importStar(__webpack_require__(3));
+var fs = __importStar(__webpack_require__(2));
 var Component = /** @class */ (function () {
     function Component() {
     }
-    Component.prototype.create = function (pathtoCopy) {
-        console.log('Create Component');
-        fs.readdir(path.resolve(__dirname, './'), function (err, files) {
-            files.forEach(function (file) {
-                console.log(file.charCodeAt);
-            });
-        });
-        console.log(__dirname);
-        fs.readFile(path.resolve(__dirname, '../src/classes/foo.txt'), function (err, html) {
-            if (err) {
-                throw err;
-            }
-            console.log(html.toLocaleString());
-        });
-        console.log('Create Component NG');
+    Component.prototype.create = function (pathtoName) {
+        console.log(pathtoName);
+        var file = path.resolve(__dirname, '../src/classes/foo.txt');
+        //gets file name and adds it to dir2
+        var f = path.basename(file);
+        var source = fs.createReadStream(file);
+        var dest = fs.createWriteStream(path.resolve(pathtoName, f));
+        source.pipe(dest);
+        source.on('end', function () { console.log('Succesfully copied'); });
+        source.on('error', function (err) { console.log(err); });
+        // fs.readFile(path.resolve(__dirname,'../src/classes/foo.txt'), (err, html:Buffer) => {
+        //     if (err) { throw err; }
+        //     console.log( html.toLocaleString());
+        // });
     };
+    ;
     return Component;
 }());
 exports.Component = Component;

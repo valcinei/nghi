@@ -12,7 +12,7 @@ export class Main {
         }
 
       
-        this.component.create('');
+        this.component.create(`${params.env.PWD}/${params.argv[2]}`);
     }
 
 }
