@@ -115,13 +115,13 @@ var Component = /** @class */ (function () {
     function Component() {
     }
     Component.prototype.create = function (diretory, fileName) {
+        var className = fileName.split('/')[fileName.split('/').length - 1];
+        className = className.replace(/^\w/, function (c) { return c.toUpperCase(); });
         var pathtoName = diretory + "/" + fileName;
         if (!fs.existsSync(pathtoName)) {
             fs.mkdirSync(pathtoName);
         }
-        console.log(pathtoName);
         var file = path.resolve(__dirname, '../src/templates/component.nghi');
-        //gets file name and adds it to dir2
         var f = path.basename(file);
         var source = fs.createReadStream(file);
         var dest = fs.createWriteStream(path.resolve("" + pathtoName, f.replace('nghi', 'ts')));
@@ -129,7 +129,7 @@ var Component = /** @class */ (function () {
             if (err) {
                 throw err;
             }
-            var convertedData = data.replace(' {{componentName}}', " " + fileName.replace(/^\w/, function (c) { return c.toUpperCase(); }));
+            var convertedData = data.replace(' {{componentName}}', " " + className);
             fs.writeFile(path.resolve("" + pathtoName, f.replace('nghi', 'ts')), convertedData, 'utf8', function (err) {
                 if (err)
                     return console.log(err);
