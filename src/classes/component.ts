@@ -10,11 +10,13 @@ export class Component {
         let pathtoName = `${diretory}/${fileName}`;
         this.createDir(pathtoName);
 
-        let file = path.resolve(__dirname, '../src/templates/component.nghi');
+        let fileTemplate = path.resolve(__dirname, '../src/templates/component.nghi');
         
-        let f = path.basename(file);
-        let source = fs.createReadStream(file);
-        this.readFileandSave(pathtoName,className,f);
+        let templaName = path.basename(fileTemplate);
+        console.log('f>>',templaName);
+        console.log('file>>',fileTemplate);
+        let source = fs.createReadStream(fileTemplate);
+        this.readFileandSave(pathtoName,className,templaName);
 
     }
 
@@ -24,17 +26,17 @@ export class Component {
         }
     }
 
-    private readFileandSave(pathtoName: any, className: any, f: any) {
+    private readFileandSave(pathtoName: any, className: any, templaName: any) {
         fs.readFile(path.resolve(__dirname, '../src/templates/component.nghi'), 'utf-8', (err, data) => {
             if (err) { throw err; }
             let convertedData = this.replacedData(data, className);
-            this.saveFile(convertedData, pathtoName, f);
+            this.saveFile(convertedData, pathtoName, templaName);
 
         })
     }
 
-    private saveFile(convertedData: any, pathtoName:any ,f:any) {
-        fs.writeFile(path.resolve(`${pathtoName}`, f.replace('nghi', 'ts')), convertedData, 'utf8', function (err) {
+    private saveFile(convertedData: any, pathtoName:any ,templaName:any) {
+        fs.writeFile(path.resolve(`${pathtoName}`, templaName.replace('nghi', 'ts')), convertedData, 'utf8', function (err) {
             if (err) return console.log(err);
         });
     }

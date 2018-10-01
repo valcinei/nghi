@@ -119,28 +119,30 @@ var Component = /** @class */ (function () {
         className = className.replace(/^\w/, function (c) { return c.toUpperCase(); });
         var pathtoName = diretory + "/" + fileName;
         this.createDir(pathtoName);
-        var file = path.resolve(__dirname, '../src/templates/component.nghi');
-        var f = path.basename(file);
-        var source = fs.createReadStream(file);
-        this.readFileandSave(pathtoName, className, f);
+        var fileTemplate = path.resolve(__dirname, '../src/templates/component.nghi');
+        var templaName = path.basename(fileTemplate);
+        console.log('f>>', templaName);
+        console.log('file>>', fileTemplate);
+        var source = fs.createReadStream(fileTemplate);
+        this.readFileandSave(pathtoName, className, templaName);
     };
     Component.prototype.createDir = function (pathtoName) {
         if (!fs.existsSync(pathtoName)) {
             fs.mkdirSync(pathtoName);
         }
     };
-    Component.prototype.readFileandSave = function (pathtoName, className, f) {
+    Component.prototype.readFileandSave = function (pathtoName, className, templaName) {
         var _this = this;
         fs.readFile(path.resolve(__dirname, '../src/templates/component.nghi'), 'utf-8', function (err, data) {
             if (err) {
                 throw err;
             }
             var convertedData = _this.replacedData(data, className);
-            _this.saveFile(convertedData, pathtoName, f);
+            _this.saveFile(convertedData, pathtoName, templaName);
         });
     };
-    Component.prototype.saveFile = function (convertedData, pathtoName, f) {
-        fs.writeFile(path.resolve("" + pathtoName, f.replace('nghi', 'ts')), convertedData, 'utf8', function (err) {
+    Component.prototype.saveFile = function (convertedData, pathtoName, templaName) {
+        fs.writeFile(path.resolve("" + pathtoName, templaName.replace('nghi', 'ts')), convertedData, 'utf8', function (err) {
             if (err)
                 return console.log(err);
         });
