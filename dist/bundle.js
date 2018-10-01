@@ -122,23 +122,31 @@ var Component = /** @class */ (function () {
         var file = path.resolve(__dirname, '../src/templates/component.nghi');
         var f = path.basename(file);
         var source = fs.createReadStream(file);
-        var dest = fs.createWriteStream(path.resolve("" + pathtoName, f.replace('nghi', 'ts')));
-        fs.readFile(path.resolve(__dirname, '../src/templates/component.nghi'), 'utf-8', function (err, data) {
-            if (err) {
-                throw err;
-            }
-            var convertedData = data.replace(' {{componentName}}', " " + className);
-            fs.writeFile(path.resolve("" + pathtoName, f.replace('nghi', 'ts')), convertedData, 'utf8', function (err) {
-                if (err)
-                    return console.log(err);
-                console.log(data);
-            });
-        });
+        this.readFileandSave(pathtoName, className, f);
     };
     Component.prototype.createDir = function (pathtoName) {
         if (!fs.existsSync(pathtoName)) {
             fs.mkdirSync(pathtoName);
         }
+    };
+    Component.prototype.readFileandSave = function (pathtoName, className, f) {
+        var _this = this;
+        fs.readFile(path.resolve(__dirname, '../src/templates/component.nghi'), 'utf-8', function (err, data) {
+            if (err) {
+                throw err;
+            }
+            var convertedData = _this.replacedData(data, className);
+            _this.saveFile(convertedData, pathtoName, f);
+        });
+    };
+    Component.prototype.saveFile = function (convertedData, pathtoName, f) {
+        fs.writeFile(path.resolve("" + pathtoName, f.replace('nghi', 'ts')), convertedData, 'utf8', function (err) {
+            if (err)
+                return console.log(err);
+        });
+    };
+    Component.prototype.replacedData = function (data, className) {
+        return data.replace(' {{componentName}}', " " + className);
     };
     return Component;
 }());

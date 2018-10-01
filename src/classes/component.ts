@@ -9,26 +9,38 @@ export class Component {
         className = className.replace(/^\w/, c => c.toUpperCase());
         let pathtoName = `${diretory}/${fileName}`;
         this.createDir(pathtoName);
-        let file = path.resolve(__dirname, '../src/templates/component.nghi')
+
+        let file = path.resolve(__dirname, '../src/templates/component.nghi');
+        
         let f = path.basename(file);
         let source = fs.createReadStream(file);
-        let dest = fs.createWriteStream(path.resolve(`${pathtoName}`, f.replace('nghi', 'ts')));
-
-        fs.readFile(path.resolve(__dirname, '../src/templates/component.nghi'), 'utf-8', (err, data) => {
-            if (err) { throw err; }
-            let convertedData = data.replace(' {{componentName}}', ` ${className}`)
-
-            fs.writeFile(path.resolve(`${pathtoName}`, f.replace('nghi', 'ts')), convertedData, 'utf8', function (err) {
-                if (err) return console.log(err);
-                console.log(data);
-            });
-        })
+        this.readFileandSave(pathtoName,className,f);
 
     }
 
-    public createDir(pathtoName: fs.PathLike) {
+    private createDir(pathtoName: fs.PathLike) {
         if (!fs.existsSync(pathtoName)) {
             fs.mkdirSync(pathtoName);
         }
     }
+
+    private readFileandSave(pathtoName: any, className: any, f: any) {
+        fs.readFile(path.resolve(__dirname, '../src/templates/component.nghi'), 'utf-8', (err, data) => {
+            if (err) { throw err; }
+            let convertedData = this.replacedData(data, className);
+            this.saveFile(convertedData, pathtoName, f);
+
+        })
+    }
+
+    private saveFile(convertedData: any, pathtoName:any ,f:any) {
+        fs.writeFile(path.resolve(`${pathtoName}`, f.replace('nghi', 'ts')), convertedData, 'utf8', function (err) {
+            if (err) return console.log(err);
+        });
+    }
+
+    private replacedData(data: any, className:any) {
+    return  data.replace(' {{componentName}}', ` ${className}`)
+    }
+
 }
