@@ -7,7 +7,6 @@ export class FileHelper {
 
     public readAndSaveFile(pathtoName: any, className: any, templaName: any, typeClass:string) {
         let fileName = className.toLocaleLowerCase();
-console.log(pathtoName);
         fs.readFile(path.resolve(__dirname, `../templates/${typeClass}.nghi`), 'utf-8', (err, data) => {
             if (err) { throw err; }
            this.saveFile(pathtoName,templaName, className, fileName, typeClass, this.replacedData(data, className, fileName));
@@ -17,10 +16,8 @@ console.log(pathtoName);
 
 
     public saveFile(pathtoName: any ,templaName:any,className:string,fileName:string,typeClass: string, convertedData :string) {
-        console.log('template',templaName)
         fs.writeFile(path.resolve(`${pathtoName}`, `${fileName}.${(templaName.replace(/(.downgrade.nghi|.nghi)/, '.ts'))}`),  convertedData, 'utf8', function (err) {
             if (err) return console.log(err);
-            console.log(fileName);
         });
         this.createFile(path.resolve(`${pathtoName}`, `${fileName}.${typeClass}.html`),`<${fileName}>app-${fileName} Works!</${fileName}>`);
         this.createFile(path.resolve(`${pathtoName}`, `${fileName}.${typeClass}.scss`),'');
@@ -41,7 +38,7 @@ console.log(pathtoName);
                 return console.log(err);
             }
         
-            console.log("The file was saved!");
+            console.log("Created");
         }); 
      }
 }

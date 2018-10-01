@@ -236,7 +236,6 @@ var FileHelper = /** @class */ (function () {
     FileHelper.prototype.readAndSaveFile = function (pathtoName, className, templaName, typeClass) {
         var _this = this;
         var fileName = className.toLocaleLowerCase();
-        console.log(pathtoName);
         fs.readFile(path.resolve(__dirname, "../templates/" + typeClass + ".nghi"), 'utf-8', function (err, data) {
             if (err) {
                 throw err;
@@ -245,11 +244,9 @@ var FileHelper = /** @class */ (function () {
         });
     };
     FileHelper.prototype.saveFile = function (pathtoName, templaName, className, fileName, typeClass, convertedData) {
-        console.log('template', templaName);
         fs.writeFile(path.resolve("" + pathtoName, fileName + "." + (templaName.replace(/(.downgrade.nghi|.nghi)/, '.ts'))), convertedData, 'utf8', function (err) {
             if (err)
                 return console.log(err);
-            console.log(fileName);
         });
         this.createFile(path.resolve("" + pathtoName, fileName + "." + typeClass + ".html"), "<" + fileName + ">app-" + fileName + " Works!</" + fileName + ">");
         this.createFile(path.resolve("" + pathtoName, fileName + "." + typeClass + ".scss"), '');
@@ -267,7 +264,7 @@ var FileHelper = /** @class */ (function () {
             if (err) {
                 return console.log(err);
             }
-            console.log("The file was saved!");
+            console.log("Created");
         });
     };
     return FileHelper;
