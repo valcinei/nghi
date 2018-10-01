@@ -1,6 +1,6 @@
 ## Library to create Hibrid component Angulajs and Angular6
 
-###Installation: 
+### Installation: 
 ` npm install -g https://github.com/valcinei/nghi.git`
 ### Commands:  
 #### Create Components
