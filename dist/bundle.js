@@ -85,6 +85,10 @@ var Main = /** @class */ (function () {
     function Main(params) {
         this.params = params;
         this.component = new component_1.Component();
+        if (params.argv.length > 5) {
+            console.log('Error to read params. Try Again');
+            return;
+        }
         switch (params.argv[2]) {
             case 'generate':
             case 'g':

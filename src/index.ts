@@ -5,6 +5,10 @@ export class Main {
     public component = new Component();
 
     constructor(public params: any) {
+        if(params.argv.length>5) {
+            console.log('Error to read params. Try Again')
+            return
+        }
         switch(params.argv[2]){
             case 'generate':
             case 'g':
