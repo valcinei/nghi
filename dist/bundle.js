@@ -121,17 +121,25 @@ var Component = /** @class */ (function () {
         this.createDir(pathtoName);
         var fileTemplate = path.resolve(__dirname, '../src/templates/component.nghi');
         var templaName = path.basename(fileTemplate);
-        console.log('f>>', templaName);
-        console.log('file>>', fileTemplate);
         var source = fs.createReadStream(fileTemplate);
-        this.readFileandSave(pathtoName, className, templaName);
+        this.readAndSaveFile(pathtoName, className, templaName);
     };
     Component.prototype.createDir = function (pathtoName) {
-        if (!fs.existsSync(pathtoName)) {
-            fs.mkdirSync(pathtoName);
+        var pathFinal = '';
+        var pathString = String(pathtoName);
+        var pathArray = pathString.split('/');
+        console.log(pathArray);
+        for (var i = 0; i < pathArray.length + 1; i++) {
+            console.log(pathFinal.length);
+            if (!fs.existsSync(pathFinal) && pathFinal.length > 0) {
+                console.log('criou', pathFinal);
+                fs.mkdirSync(pathFinal);
+                console.log(pathFinal);
+            }
+            pathFinal += pathArray[i] + "/";
         }
     };
-    Component.prototype.readFileandSave = function (pathtoName, className, templaName) {
+    Component.prototype.readAndSaveFile = function (pathtoName, className, templaName) {
         var _this = this;
         fs.readFile(path.resolve(__dirname, '../src/templates/component.nghi'), 'utf-8', function (err, data) {
             if (err) {

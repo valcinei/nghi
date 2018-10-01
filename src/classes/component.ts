@@ -9,24 +9,31 @@ export class Component {
         className = className.replace(/^\w/, c => c.toUpperCase());
         let pathtoName = `${diretory}/${fileName}`;
         this.createDir(pathtoName);
-
         let fileTemplate = path.resolve(__dirname, '../src/templates/component.nghi');
-        
         let templaName = path.basename(fileTemplate);
-        console.log('f>>',templaName);
-        console.log('file>>',fileTemplate);
         let source = fs.createReadStream(fileTemplate);
-        this.readFileandSave(pathtoName,className,templaName);
+        this.readAndSaveFile(pathtoName,className,templaName);
 
     }
 
     private createDir(pathtoName: fs.PathLike) {
-        if (!fs.existsSync(pathtoName)) {
-            fs.mkdirSync(pathtoName);
+        let pathFinal = '';
+        let pathString = String(pathtoName);
+        let  pathArray = pathString.split('/');
+        console.log(pathArray);
+        for (let i=0; i<pathArray.length+1; i++ ) {
+            console.log(pathFinal.length);
+            
+            if (!fs.existsSync(pathFinal) && pathFinal.length > 0 ) {
+                console.log('criou', pathFinal);
+                fs.mkdirSync(pathFinal);
+                console.log(pathFinal);
+            }
+            pathFinal+=`${pathArray[i]}/`;
         }
     }
 
-    private readFileandSave(pathtoName: any, className: any, templaName: any) {
+    private readAndSaveFile(pathtoName: any, className: any, templaName: any) {
         fs.readFile(path.resolve(__dirname, '../src/templates/component.nghi'), 'utf-8', (err, data) => {
             if (err) { throw err; }
             let convertedData = this.replacedData(data, className);
