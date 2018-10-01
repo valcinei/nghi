@@ -85,10 +85,15 @@ var Main = /** @class */ (function () {
     function Main(params) {
         this.params = params;
         this.component = new component_1.Component();
-        if (params.argv[2] === 'generate') {
-            console.log('Generate Component');
+        console.log(params.argv[2]);
+        switch (params.argv[2]) {
+            case 'generate':
+                switch (params.argv[3]) {
+                    case 'component':
+                        this.component.createDowngrade(params.env.PWD, params.argv[4]);
+                        break;
+                }
         }
-        this.component.createDowngrade(params.env.PWD, params.argv[2]);
     }
     return Main;
 }());
@@ -109,6 +114,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var camelCase_helper_1 = __webpack_require__(6);
 var file_helper_1 = __webpack_require__(5);
 var directory_helper_1 = __webpack_require__(4);
 var path = __importStar(__webpack_require__(2));
@@ -117,10 +123,11 @@ var Component = /** @class */ (function () {
     function Component() {
         this.directory = new directory_helper_1.DirectoryHelper();
         this.fileHelper = new file_helper_1.FileHelper();
+        this.camelCase = new camelCase_helper_1.CamelCaseHelper();
     }
     Component.prototype.create = function (diretory, fileName) {
         var className = fileName.split('/')[fileName.split('/').length - 1];
-        className = className.replace(/^\w/, function (c) { return c.toUpperCase(); });
+        className = this.camelCase.encode(className);
         var pathtoName = diretory + "/" + fileName;
         this.directory.create(pathtoName);
         var fileTemplate = path.resolve(__dirname, '../templates/component.nghi');
@@ -130,7 +137,7 @@ var Component = /** @class */ (function () {
     };
     Component.prototype.createDowngrade = function (diretory, fileName) {
         var className = fileName.split('/')[fileName.split('/').length - 1];
-        className = className.replace(/^\w/, function (c) { return c.toUpperCase(); });
+        className = this.camelCase.encode(className);
         var pathtoName = diretory + "/" + fileName;
         this.directory.create(pathtoName);
         var fileTemplate = path.resolve(__dirname, '../templates/component.downgrade.nghi');
@@ -252,6 +259,26 @@ var FileHelper = /** @class */ (function () {
     return FileHelper;
 }());
 exports.FileHelper = FileHelper;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var CamelCaseHelper = /** @class */ (function () {
+    function CamelCaseHelper() {
+    }
+    CamelCaseHelper.prototype.encode = function (str) {
+        return str.replace(/\W+(.)/g, function (match, chr) {
+            return chr.toUpperCase();
+        });
+    };
+    return CamelCaseHelper;
+}());
+exports.CamelCaseHelper = CamelCaseHelper;
 
 
 /***/ })
