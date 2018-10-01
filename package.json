@@ -1,5 +1,5 @@
 {
-  "name": "ngh",
+  "name": "nghi",
   "version": "1.0.0",
   "description": "create component into hibrid angular versions",
   "main": "./dist/bundle.js",
@@ -10,7 +10,7 @@
     "dev": "node bin/nghi-global.js generate"
   },
   "bin": {
-    "nghi": "./bin/nghi-global.js"
+    "ngh": "./bin/nghi-global.js"
   },
   "author": "Valcinei Silva",
   "license": "ISC",
