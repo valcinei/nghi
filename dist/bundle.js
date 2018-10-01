@@ -118,9 +118,7 @@ var Component = /** @class */ (function () {
         var className = fileName.split('/')[fileName.split('/').length - 1];
         className = className.replace(/^\w/, function (c) { return c.toUpperCase(); });
         var pathtoName = diretory + "/" + fileName;
-        if (!fs.existsSync(pathtoName)) {
-            fs.mkdirSync(pathtoName);
-        }
+        this.createDir(pathtoName);
         var file = path.resolve(__dirname, '../src/templates/component.nghi');
         var f = path.basename(file);
         var source = fs.createReadStream(file);
@@ -136,6 +134,11 @@ var Component = /** @class */ (function () {
                 console.log(data);
             });
         });
+    };
+    Component.prototype.createDir = function (pathtoName) {
+        if (!fs.existsSync(pathtoName)) {
+            fs.mkdirSync(pathtoName);
+        }
     };
     return Component;
 }());
