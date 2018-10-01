@@ -88,7 +88,7 @@ var Main = /** @class */ (function () {
         if (params.argv[2] === 'generate') {
             console.log('Generate Component');
         }
-        this.component.create(params.env.PWD, params.argv[2]);
+        this.component.createDowngrade(params.env.PWD, params.argv[2]);
     }
     return Main;
 }());
@@ -123,7 +123,17 @@ var Component = /** @class */ (function () {
         className = className.replace(/^\w/, function (c) { return c.toUpperCase(); });
         var pathtoName = diretory + "/" + fileName;
         this.directory.create(pathtoName);
-        var fileTemplate = path.resolve(__dirname, '../src/templates/component.nghi');
+        var fileTemplate = path.resolve(__dirname, '../templates/component.nghi');
+        var templaName = path.basename(fileTemplate);
+        var source = fs.createReadStream(fileTemplate);
+        this.fileHelper.readAndSaveFile(pathtoName, className, templaName, 'component');
+    };
+    Component.prototype.createDowngrade = function (diretory, fileName) {
+        var className = fileName.split('/')[fileName.split('/').length - 1];
+        className = className.replace(/^\w/, function (c) { return c.toUpperCase(); });
+        var pathtoName = diretory + "/" + fileName;
+        this.directory.create(pathtoName);
+        var fileTemplate = path.resolve(__dirname, '../templates/component.downgrade.nghi');
         var templaName = path.basename(fileTemplate);
         var source = fs.createReadStream(fileTemplate);
         this.fileHelper.readAndSaveFile(pathtoName, className, templaName, 'component');
@@ -204,7 +214,8 @@ var FileHelper = /** @class */ (function () {
     }
     FileHelper.prototype.readAndSaveFile = function (pathtoName, className, templaName, typeClass) {
         var _this = this;
-        fs.readFile(path.resolve(__dirname, "../src/templates/" + typeClass + ".nghi"), 'utf-8', function (err, data) {
+        console.log(pathtoName);
+        fs.readFile(path.resolve(__dirname, "../templates/" + typeClass + ".nghi"), 'utf-8', function (err, data) {
             if (err) {
                 throw err;
             }
@@ -214,7 +225,7 @@ var FileHelper = /** @class */ (function () {
     FileHelper.prototype.saveFile = function (pathtoName, templaName, className, convertedData) {
         var fileName = className.toLocaleLowerCase();
         console.log('template', templaName);
-        fs.writeFile(path.resolve("" + pathtoName, fileName + "." + (templaName.replace('nghi', 'ts'))), convertedData, 'utf8', function (err) {
+        fs.writeFile(path.resolve("" + pathtoName, fileName + "." + (templaName.replace(/(.downgrade.nghi|.nghi)/, '.ts'))), convertedData, 'utf8', function (err) {
             if (err)
                 return console.log(err);
         });
