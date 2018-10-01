@@ -214,24 +214,29 @@ var FileHelper = /** @class */ (function () {
     }
     FileHelper.prototype.readAndSaveFile = function (pathtoName, className, templaName, typeClass) {
         var _this = this;
+        var fileName = className.toLocaleLowerCase();
         console.log(pathtoName);
         fs.readFile(path.resolve(__dirname, "../templates/" + typeClass + ".nghi"), 'utf-8', function (err, data) {
             if (err) {
                 throw err;
             }
-            _this.saveFile(pathtoName, templaName, className, _this.replacedData(data, className));
+            _this.saveFile(pathtoName, templaName, className, fileName, _this.replacedData(data, className, fileName));
         });
     };
-    FileHelper.prototype.saveFile = function (pathtoName, templaName, className, convertedData) {
-        var fileName = className.toLocaleLowerCase();
+    FileHelper.prototype.saveFile = function (pathtoName, templaName, className, fileName, convertedData) {
         console.log('template', templaName);
         fs.writeFile(path.resolve("" + pathtoName, fileName + "." + (templaName.replace(/(.downgrade.nghi|.nghi)/, '.ts'))), convertedData, 'utf8', function (err) {
             if (err)
                 return console.log(err);
         });
     };
-    FileHelper.prototype.replacedData = function (data, className) {
-        return data.replace(/{{className}}/g, " " + className);
+    FileHelper.prototype.replacedData = function (data, className, fileName) {
+        var nameComp = data.replace(/{{className}}/g, " " + className);
+        var htmlselector = nameComp.replace(/{{htmlselector}}/g, fileName);
+        var templateUrl = htmlselector.replace(/{{htmlcomponent}}/g, fileName);
+        var styleUrls = templateUrl.replace(/{{scsscomponent}}/g, fileName);
+        var finalData = styleUrls;
+        return finalData.replace(/{{className}}/g, " " + className);
     };
     return FileHelper;
 }());

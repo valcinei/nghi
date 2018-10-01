@@ -14,6 +14,6 @@ export class {{className}}Component {
 
 }
 
-angular.module("wexKanbanApp").directive("{{className}}", downgradeComponent({
+angular.module("IMPORT YOU MODULE HERE !!!").directive("{{className}}", downgradeComponent({
     component: {{className}}Component
 }) as angular.IDirectiveFactory);

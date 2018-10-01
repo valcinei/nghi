@@ -1,19 +1,12 @@
-import { Component, Input } from '@angular/core';
-import { downgradeComponent } from '@angular/upgrade/static';
-import angular = require('angular');
-const template = require("./graficos-parent.html");
-const css = require("./graficos-parent.css");
+
+import { Component } from '@angular/core';
 
 @Component({
-    selector: "graficos-parent",
-    template: template,
-    styles: [""]
-})
-
-export class {{className}}Component {
-
-}
-
-angular.module("wexKanbanApp").directive("{{className}}", downgradeComponent({
-    component: {{className}}Component
-}) as angular.IDirectiveFactory);
+    selector: '{{htmlselector}}',
+    templateUrl: './{{htmlcomponent}}.component.html',
+    styleUrls: ['./{{scsscomponent}}.component.scss'],
+  })
+  export class {{className}}Component {
+      constructor(){}
+  }
+ 
