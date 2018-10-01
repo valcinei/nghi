@@ -24,6 +24,6 @@ export class FileHelper {
     }
 
     private replacedData(data: any, className:any) {
-        return  data.replace(' {{componentName}}', ` ${className}`)
+        return  data.replace(/{{className}}/g, ` ${className}`)
      }
 }

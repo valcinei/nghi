@@ -10,10 +10,10 @@ const css = require("./graficos-parent.css");
     styles: [""]
 })
 
-export class {{className}}Component {
+export class  MyComponentclearComponent {
 
 }
 
-angular.module("wexKanbanApp").directive("{{className}}", downgradeComponent({
-    component: {{className}}Component
+angular.module("wexKanbanApp").directive(" MyComponentclear", downgradeComponent({
+    component:  MyComponentclearComponent
 }) as angular.IDirectiveFactory);

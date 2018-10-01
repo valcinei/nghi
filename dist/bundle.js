@@ -220,7 +220,7 @@ var FileHelper = /** @class */ (function () {
         });
     };
     FileHelper.prototype.replacedData = function (data, className) {
-        return data.replace(' {{componentName}}', " " + className);
+        return data.replace(/{{className}}/g, " " + className);
     };
     return FileHelper;
 }());
