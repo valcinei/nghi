@@ -85,14 +85,24 @@ var Main = /** @class */ (function () {
     function Main(params) {
         this.params = params;
         this.component = new component_1.Component();
-        console.log(params.argv[2]);
         switch (params.argv[2]) {
             case 'generate':
+            case 'g':
                 switch (params.argv[3]) {
                     case 'component':
+                    case 'c':
+                        this.component.create(params.env.PWD, params.argv[4]);
+                        break;
+                    case 'component-down':
+                    case 'cd':
                         this.component.createDowngrade(params.env.PWD, params.argv[4]);
                         break;
+                    default:
+                        console.log('Error to read params. Try Again');
                 }
+                break;
+            default:
+                console.log('Error to read params. Try Again');
         }
     }
     return Main;
