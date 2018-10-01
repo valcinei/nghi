@@ -109,54 +109,24 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var file_helper_1 = __webpack_require__(5);
+var directory_helper_1 = __webpack_require__(4);
 var path = __importStar(__webpack_require__(2));
 var fs = __importStar(__webpack_require__(3));
 var Component = /** @class */ (function () {
     function Component() {
+        this.directory = new directory_helper_1.DirectoryHelper();
+        this.fileHelper = new file_helper_1.FileHelper();
     }
     Component.prototype.create = function (diretory, fileName) {
         var className = fileName.split('/')[fileName.split('/').length - 1];
         className = className.replace(/^\w/, function (c) { return c.toUpperCase(); });
         var pathtoName = diretory + "/" + fileName;
-        this.createDir(pathtoName);
+        this.directory.create(pathtoName);
         var fileTemplate = path.resolve(__dirname, '../src/templates/component.nghi');
         var templaName = path.basename(fileTemplate);
         var source = fs.createReadStream(fileTemplate);
-        this.readAndSaveFile(pathtoName, className, templaName);
-    };
-    Component.prototype.createDir = function (pathtoName) {
-        var pathFinal = '';
-        var pathString = String(pathtoName);
-        var pathArray = pathString.split('/');
-        console.log(pathArray);
-        for (var i = 0; i < pathArray.length + 1; i++) {
-            console.log(pathFinal.length);
-            if (!fs.existsSync(pathFinal) && pathFinal.length > 0) {
-                console.log('criou', pathFinal);
-                fs.mkdirSync(pathFinal);
-                console.log(pathFinal);
-            }
-            pathFinal += pathArray[i] + "/";
-        }
-    };
-    Component.prototype.readAndSaveFile = function (pathtoName, className, templaName) {
-        var _this = this;
-        fs.readFile(path.resolve(__dirname, '../src/templates/component.nghi'), 'utf-8', function (err, data) {
-            if (err) {
-                throw err;
-            }
-            var convertedData = _this.replacedData(data, className);
-            _this.saveFile(convertedData, pathtoName, templaName);
-        });
-    };
-    Component.prototype.saveFile = function (convertedData, pathtoName, templaName) {
-        fs.writeFile(path.resolve("" + pathtoName, templaName.replace('nghi', 'ts')), convertedData, 'utf8', function (err) {
-            if (err)
-                return console.log(err);
-        });
-    };
-    Component.prototype.replacedData = function (data, className) {
-        return data.replace(' {{componentName}}', " " + className);
+        this.fileHelper.readAndSaveFile(pathtoName, className, templaName, 'component');
     };
     return Component;
 }());
@@ -174,6 +144,88 @@ module.exports = require("path");
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var fs = __importStar(__webpack_require__(3));
+var DirectoryHelper = /** @class */ (function () {
+    function DirectoryHelper() {
+    }
+    DirectoryHelper.prototype.create = function (pathtoName) {
+        var pathFinal = '';
+        var pathString = String(pathtoName);
+        var pathArray = pathString.split('/');
+        console.log(pathArray);
+        for (var i = 0; i < pathArray.length + 1; i++) {
+            console.log(pathFinal.length);
+            if (!fs.existsSync(pathFinal) && pathFinal.length > 0) {
+                console.log('criou', pathFinal);
+                fs.mkdirSync(pathFinal);
+                console.log(pathFinal);
+            }
+            pathFinal += pathArray[i] + "/";
+        }
+    };
+    return DirectoryHelper;
+}());
+exports.DirectoryHelper = DirectoryHelper;
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var fs = __importStar(__webpack_require__(3));
+var path = __importStar(__webpack_require__(2));
+var FileHelper = /** @class */ (function () {
+    function FileHelper() {
+    }
+    FileHelper.prototype.readAndSaveFile = function (pathtoName, className, templaName, typeClass) {
+        var _this = this;
+        fs.readFile(path.resolve(__dirname, "../src/templates/" + typeClass + ".nghi"), 'utf-8', function (err, data) {
+            if (err) {
+                throw err;
+            }
+            _this.saveFile(pathtoName, templaName, className, _this.replacedData(data, className));
+        });
+    };
+    FileHelper.prototype.saveFile = function (pathtoName, templaName, className, convertedData) {
+        var fileName = className.toLocaleLowerCase();
+        console.log('template', templaName);
+        fs.writeFile(path.resolve("" + pathtoName, fileName + "." + (templaName.replace('nghi', 'ts'))), convertedData, 'utf8', function (err) {
+            if (err)
+                return console.log(err);
+        });
+    };
+    FileHelper.prototype.replacedData = function (data, className) {
+        return data.replace(' {{componentName}}', " " + className);
+    };
+    return FileHelper;
+}());
+exports.FileHelper = FileHelper;
+
 
 /***/ })
 /******/ ]);
