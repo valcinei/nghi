@@ -220,23 +220,34 @@ var FileHelper = /** @class */ (function () {
             if (err) {
                 throw err;
             }
-            _this.saveFile(pathtoName, templaName, className, fileName, _this.replacedData(data, className, fileName));
+            _this.saveFile(pathtoName, templaName, className, fileName, typeClass, _this.replacedData(data, className, fileName));
         });
     };
-    FileHelper.prototype.saveFile = function (pathtoName, templaName, className, fileName, convertedData) {
+    FileHelper.prototype.saveFile = function (pathtoName, templaName, className, fileName, typeClass, convertedData) {
         console.log('template', templaName);
         fs.writeFile(path.resolve("" + pathtoName, fileName + "." + (templaName.replace(/(.downgrade.nghi|.nghi)/, '.ts'))), convertedData, 'utf8', function (err) {
             if (err)
                 return console.log(err);
+            console.log(fileName);
         });
+        this.createFile(path.resolve("" + pathtoName, fileName + "." + typeClass + ".html"), "<" + fileName + ">app-" + fileName + " Works!</" + fileName + ">");
+        this.createFile(path.resolve("" + pathtoName, fileName + "." + typeClass + ".scss"), '');
     };
     FileHelper.prototype.replacedData = function (data, className, fileName) {
         var nameComp = data.replace(/{{className}}/g, " " + className);
-        var htmlselector = nameComp.replace(/{{htmlselector}}/g, fileName);
+        var htmlselector = nameComp.replace(/{{htmlselector}}/g, "app-" + fileName);
         var templateUrl = htmlselector.replace(/{{htmlcomponent}}/g, fileName);
         var styleUrls = templateUrl.replace(/{{scsscomponent}}/g, fileName);
         var finalData = styleUrls;
         return finalData.replace(/{{className}}/g, " " + className);
+    };
+    FileHelper.prototype.createFile = function (fileName, content) {
+        fs.writeFile(fileName, content, function (err) {
+            if (err) {
+                return console.log(err);
+            }
+            console.log("The file was saved!");
+        });
     };
     return FileHelper;
 }());
