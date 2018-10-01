@@ -1,27 +1,19 @@
-    @Component({
-      selector: 'app-bank-account',
-      inputs: ['bankName', 'id: account-id'],
-      template: `
-        Bank Name: {{ bankName }}
-        Account Id: {{ id }}
-      `
-    })
-    export class {{componentName}} {
-      bankName: string|null = null;
-      id: string|null = null;
-     
-      // this property is not bound, and won't be automatically updated by Angular
-      normalizedBankName: string|null = null;
-    }
-     
-    @Component({
-      selector: 'app-my-input',
-      template: `
-        <app-bank-account
-          bankName="RBC"
-          account-id="4747">
-        </app-bank-account>
-      `
-    })
-    export class MyInputComponent {
-    }
+import { Component, Input } from '@angular/core';
+import { downgradeComponent } from '@angular/upgrade/static';
+import angular = require('angular');
+const template = require("./graficos-parent.html");
+const css = require("./graficos-parent.css");
+
+@Component({
+    selector: "graficos-parent",
+    template: template,
+    styles: [""]
+})
+
+export class GraficosParentComponent {
+
+}
+
+angular.module("wexKanbanApp").directive("graficosParent", downgradeComponent({
+    component: GraficosParentComponent
+}) as angular.IDirectiveFactory);
